@@ -2,7 +2,41 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cursos {
+public class Curso {
+	
+	private int id;
+	private String nome;
+	
+	private	List<Turma> listaTurma = new ArrayList<Turma>();
+	
+	public List<Turma> getListaTurma() {
+		return listaTurma;
+	}
+
+	public void setListaTurma(List<Turma> listaTurma) {
+		this.listaTurma = listaTurma;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Curso (){
+		
+	}
+	
     //Criar as listas para armazenar os dado do curso
     List<String> turmas = new ArrayList<>();
     List<String> horario = new ArrayList<>();
