@@ -18,12 +18,6 @@ public class Atendimento {
 		
 	}
 	
-	public void limpaTela() throws InterruptedException, IOException {
-		
-		System.out.print("\\u000c");
-	
-	}
-	
 	//Traz alunos cadastrados
 	public List<Aluno> getAlunosCadastrados() {
 		return alunosCadastrados;
