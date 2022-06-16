@@ -12,7 +12,7 @@ public class Turma {
 	private	List<Matricula> listaMatricula = new ArrayList<Matricula>();
 	
 	private int qtdAlunos = 0;
-	private int qtdMaxima = 10;
+	private int qtdMaxima = 3;
 
 	public List<Matricula> getListaMatricula() {
 		return listaMatricula;

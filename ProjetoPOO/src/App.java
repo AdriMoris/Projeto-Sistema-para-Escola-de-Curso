@@ -5,60 +5,41 @@ public class App {
 	
     public static void main(String[] args) throws Exception {
     	
-    	int escolha = 0;
-    	int cursoSelecionado = 0;
-    	int turmaSelecionada = 0;
-
-        Atendimento atendimento = new Atendimento();
+    	int escolhaInt = 1;
+        
+    	Atendimento atendimento = new Atendimento();
         Scanner scan = new Scanner(System.in);
         
-        // Ler a escolha do usuario
-        System.out.println("Informe o numero do curso que se interessou, para saber mais informações:");
-        
-        //Mostra cursos
-        atendimento.mostrarCursos();
-        
-        escolha = scan.nextInt();
-        cursoSelecionado = escolha;
-
-        atendimento.limpaTela();
-
-        System.out.println("Informe a turma desejada");
-        
-        //Mostra turmas
-        atendimento.exibeTurmas(cursoSelecionado);
-        
-        escolha = scan.nextInt();
-        turmaSelecionada = escolha;
-        
-        
-        
-
-        //Realiza uma ação de acordo com a escolha do usuario(Precisa ser melhorado)
-//        switch (escolha) {
-//            case 1:
-//            	atendimento.mostraInforme(0);
-//                break;
-//            case 2:
-//            	atendimento.mostraInforme(1);
-//                break;
-//            case 3:
-//            	atendimento.mostraInforme(2);
-//                break;
-//            case 4:
-//
-//                break;
-//            case 5:
-//
-//                break;
-//
-//            default:
-//                System.out.println("Opção errada!");
-//                break;
-//        }
+        while(escolhaInt > 0) {
+        	
+        	System.out.println("1 - Iniciar cadastramento");
+            System.out.println("2 - Exibir alunos cadastrados");
+            System.out.println("3 - Exibir cursos e turmas");
+            System.out.println("0 - Encerra aplicação");
+        	
+	    	 escolhaInt = Integer.parseInt(scan.nextLine());
+	         
+	         switch(escolhaInt) {
+	         
+	 		    case 1:
+	 		    	atendimento.iniciaCadastro();
+	 		    	break;
+	 		    case 2:
+	 		    	atendimento.mostraAlunosCadastrados();
+	 		    	break;
+	 		    case 3:
+	 		    	atendimento.mostraCursosTurmas();
+	 		    	break;
+	 		    case 0:
+	 		    	System.out.println("Fim da execução!");
+	 		    	break;
+	         		
+	         }
+        	
+        }
         
         scan.close();
-
+        
     }
 
 }
