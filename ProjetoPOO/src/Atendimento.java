@@ -6,9 +6,11 @@ import java.util.Scanner;
 
 public class Atendimento {
 	
+	//Listas para popular alunos e cursos cadastrados.
 	private List<Aluno> alunosCadastrados = new ArrayList<Aluno>();
 	private List<Curso> cursosCadastrados = new ArrayList<Curso>();
 	
+	//Construtor responsável por fazer carregamento de alunos e cursos.
 	public Atendimento() {
 		
 		carregaAlunos();
@@ -22,10 +24,12 @@ public class Atendimento {
 	
 	}
 	
+	//Traz alunos cadastrados
 	public List<Aluno> getAlunosCadastrados() {
 		return alunosCadastrados;
 	}
 
+	//Traz cursos cadastrados
 	public List<Curso> getCursosCadastrados() {
 		return cursosCadastrados;
 	}
@@ -227,6 +231,7 @@ public class Atendimento {
 		
 	}
 	
+	//Método responsável por fazer o cadastro do aluno em uma turma.
 	public void iniciaCadastro() {
 		
 		int escolhaInt = 0;
@@ -247,6 +252,8 @@ public class Atendimento {
         
         estaCadastrado = verificaCadastro(escolhaString);
         
+        /*Se o aluno não está cadastrado no sistema, deve ser cadastrado.
+         * Caso já tenha sido cadastrado, guarda o objeto aluno para uso.*/
         if(!estaCadastrado) {
         	
         	System.out.println("Você ainda não está cadastrado! Realize o cadastro a seguir:");
@@ -256,10 +263,8 @@ public class Atendimento {
         	aluno = pegaAlunoPorCpf(escolhaString);
         }
         
-        // Ler a escolha do usuario
         System.out.println("Informe o numero do curso que se interessou, para saber mais informações:");
         
-        //Mostra cursos
         mostrarCursos();
         
         escolhaInt = Integer.parseInt(scan.nextLine());
@@ -267,9 +272,9 @@ public class Atendimento {
 
         System.out.println("Informe a turma desejada:");
         
-        //Mostra turmas
         exibeTurmas(cursoSelecionado, false);
         
+        //Caso a turma selecionada estiver lotada, a aplicação dá a opção de escolher outra turma.
         while(escolhaTurma == false) {
         	
         	escolhaInt = Integer.parseInt(scan.nextLine());
@@ -283,6 +288,7 @@ public class Atendimento {
         
 	}
 	
+	//Verifica se o aluno está cadastrado no sistema.
 	public boolean verificaCadastro(String cpf) {
 		
 		for(Aluno aluno : this.alunosCadastrados){
@@ -294,6 +300,7 @@ public class Atendimento {
 	
 	}
 	
+	//Traz um objeto do tipo aluno com base em seu CPF.
 	public Aluno pegaAlunoPorCpf(String cpf) {
 		
 		for(Aluno aluno : this.alunosCadastrados)  {
@@ -321,6 +328,7 @@ public class Atendimento {
 		
 	}
 	
+	//Faz o cadastro do aluno no sistema.
 	public Aluno realizaCadastro(String cpf, Scanner scan) {
 		
 		int numeroAlunos = this.getAlunosCadastrados().size();
@@ -356,7 +364,7 @@ public class Atendimento {
 		
 	}
 
-    //Apresenta os cursos Disponiveis ofertados(Precisa ser melhorado)
+    //Exibe cursos cadastrados.
     public void mostrarCursos() {
     	
     	System.out.println("-------------- Cursos Diponíveis --------------");
@@ -369,6 +377,7 @@ public class Atendimento {
        
     }
     
+    //Exibe as turmas do curso em questão.
     public void exibeTurmas(int idCurso, boolean modoExibicao) {
     	
     	Curso cursoSelecionado = this.cursosCadastrados.get(idCurso - 1);
@@ -388,6 +397,7 @@ public class Atendimento {
     	
     }
     
+    //Faz a listagem dos cursos e das turmas de forma mais completa.
 	public void mostraCursosTurmas() {
 			
 		for(Curso curso : this.cursosCadastrados)  {
@@ -412,6 +422,7 @@ public class Atendimento {
 			
 	}
     
+	//Faz a listagem dos cursos e das turmas.
     public void exibeAlunosTurma(int idCurso, int idTurma, List<Aluno> alunos) {
     	
     	Curso cursoSelecionado = this.cursosCadastrados.get(idCurso - 1);
@@ -438,13 +449,19 @@ public class Atendimento {
     	
     }
     
+    //Realiza a matrícula do aluno em uma turma.
     public boolean realizaMatricula(int idCurso, int idTurma, int idAluno) {
     	
+    	//O "-1" é utilizado por que o id do curso menos 1 é sua posição no array.
     	Curso cursoSelecionado = this.cursosCadastrados.get(idCurso - 1);
     	Turma turmaSelecionada = null;
     	
     	int indice = 0;
     	
+    	/*Laço for utilizado para capturar qual o indice 
+    	 * da posição da turma selecionada no array de turmas cadastradas 
+    	 * para o curso selecionado.
+    	 */
     	for(Turma turma : cursoSelecionado.getListaTurma()) {
     		
     		if(turma.getId() == idTurma) {
@@ -460,11 +477,14 @@ public class Atendimento {
     	
     	Matricula matricula = new Matricula();
     	
+    	//Matrícula é o ano vigente + zero + id do aluno.
     	String idMatricula = "2022" + "0" + idAluno;
     	
     	matricula.setId(Integer.parseInt(idMatricula));
     	matricula.setIdAluno(idAluno);
     	
+    	//Verifica se ao se matricular em uma turma, esta turma já está lotada.
+    	//Caso não esteja lotada, realiza matrícula.
     	if(turmaSelecionada.getQtdAlunos() == turmaSelecionada.getQtdMaxima()) {
     		
     		System.out.println("A turma atingiu o número máximo de matrículas! digite outro número.");
@@ -472,7 +492,10 @@ public class Atendimento {
     		
     	} else {
     		
+    		//Adiciona matrícula na turma do curso selecionado.
     		this.cursosCadastrados.get(idCurso - 1).getListaTurma().get(indice).getListaMatricula().add(matricula);
+    		
+    		//Adiciona +1 no número de alunos matriculados na turma do curso selecionado.
     		this.cursosCadastrados.get(idCurso - 1).getListaTurma().get(indice).setQtdAlunos(qtdMatriculados + 1);
     		
     		System.out.println("Matrícula efetuada!");
